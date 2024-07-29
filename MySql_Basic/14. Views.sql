@@ -38,9 +38,9 @@ INSERT INTO Classes (class_name, teacher_name) VALUES
 ('Science', 'Mr. Kutty ');
 
 INSERT INTO Enrollments (student_id, class_id, enrollment_date) VALUES
-(1, 1, ' 2024-07-29 '),
-(2, 1, ' 2024-07-29 '),
-(3, 2, ' 2024-07-29 ');
+(1, 1, '2024-07-29'),
+(2, 1, '2024-07-29'),
+(3, 2, '2024-07-29');
 
 -- 10.2 Create Views:
 
