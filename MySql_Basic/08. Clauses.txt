@@ -1,0 +1,236 @@
+-- ============
+-- SQL Clauses
+-- ============
+SQL clauses are components of SQL statements used to filter, organize, and control the results of queries. 
+Each clause serves a specific purpose and is used to refine and manipulate the data retrieved from a database. 
+
+SQL Commands with Clauses:
+- **SELECT**     : Retrieves data from a database.
+- **FROM**       : Specifies the table(s) to retrieve data from.
+- **INTO**       : Used to store the result of a query into a variable.
+- **WHERE**      : Filters rows based on conditions.
+- **GROUP BY**   : Groups rows based on one or more columns.
+- **HAVING**     : Filters groups based on conditions after aggregation.
+- **ORDER BY**   : Sorts the result set by one or more columns.
+- **LIMIT**      : Limits the number of rows returned.
+- **OFFSET**     : Skips a number of rows before returning results.
+- **JOIN**       : Combines rows from two or more tables.
+- **UNION**      : Combines results from multiple queries.
+- **EXISTS**     : Checks for the existence of rows in a subquery.
+- **CASE**       : Provides conditional logic in queries.
+- **DISTINCT**   : Ensures unique rows in the result set.
+- **WITH (CTE)** : Defines a temporary result set for complex queries.
+
+
+1. **SELECT Clause**
+   - Purpose: Specifies the columns to be retrieved from the database.
+   - Usage: Used with the FROM clause to include columns in query results.
+   - Example:
+     ```sql
+     SELECT column1, column2, ...
+     FROM table_name;
+     ```
+
+2. **FROM Clause**
+   - Purpose: Specifies the table(s) from which to retrieve data.
+   - Usage: Defines the source table or tables for the query.
+   - Example:
+     ```sql
+     SELECT column1, column2
+     FROM table_name;
+     ```
+3. **INTO** 
+   - Purpose: Store the result of a query into a variable for further use.
+   - Usage: Store single or multiple column values from a query into variables.
+   - Example:
+     ```sql
+      DECLARE @max_salary DECIMAL(10, 2);
+      SELECT MAX(salary) 
+      INTO @max_salary 
+      FROM Employees;
+      SELECT @max_salary;
+     ```
+
+4. **WHERE Clause**
+   - Purpose: Filters records based on specified conditions.
+   - Usage: Restricts rows returned by the query based on criteria.
+   - Example:
+     ```sql
+     SELECT column1, column2
+     FROM table_name
+     WHERE condition;
+     ```
+
+5. **GROUP BY Clause**
+   - Purpose: Groups rows with the same values into summary rows.
+   - Usage: Often used with aggregate functions (e.g., COUNT, SUM) to summarize data.
+   - Example:
+     ```sql
+     SELECT column1, COUNT(*)
+     FROM table_name
+     GROUP BY column1;
+     ```
+
+6. **HAVING Clause**
+   - Purpose: Filters groups based on conditions after aggregation.
+   - Usage: Applies conditions to groups created by GROUP BY.
+   - Example:
+     ```sql
+     SELECT column1, COUNT(*)
+     FROM table_name
+     GROUP BY column1
+     HAVING COUNT(*) > 5;
+     ```
+    WHERE vs HAVING:
+    +---------------------------------------------------+---------------------------------------------------+
+    | WHERE                                             | HAVING                                            |
+    +===================================================+===================================================+
+    | used to filter rows from the result based on      | used to filter rows from the result based on      |
+    | condition applied to a row before the aggregation | condition applied to a row after the aggregation  |
+    +---------------------------------------------------+---------------------------------------------------+
+    | It is used with SELECT,UPDATE,or DELETE commands  | It is used with GROUP BY and aggregate functions  |
+    +---------------------------------------------------+---------------------------------------------------+
+    | SELECT * FROM tableName WHERE condition;          | SELECT col1, col2 aggregateFun(col3)              |
+    |                                                   |  FROM tableName                                   |
+    |                                                   |  GROUP BY col1 col2                               |
+    |                                                   |  HAVING condition;                                |
+    +---------------------------------------------------+---------------------------------------------------+
+
+7. **ORDER BY Clause**
+   - Purpose: Sorts the result set by one or more columns.
+   - Usage: Determines the order of rows returned.
+   - Example:
+     ```sql
+     SELECT column1, column2
+     FROM table_name
+     ORDER BY column1 ASC, column2 DESC;
+     ```
+
+8. **LIMIT Clause**
+   - Purpose: Limits the number of rows returned by the query.
+   - Usage: Specifies the maximum number of rows to return.
+   - Example:
+     ```sql
+     SELECT column1, column2
+     FROM table_name
+     LIMIT 10;
+     ```
+
+    LIMIT n:
+    - Purpose: Limits the number of rows returned by a query.
+    - Usage: SELECT * FROM table_name LIMIT n;
+    - Example: SELECT * FROM Employees LIMIT 5;  -- Returns the first 5 rows.
+
+    LIMIT m, n:
+    - Purpose: Skips the first m rows and then limits the result to n rows.
+    - Usage: SELECT * FROM table_name LIMIT m, n;
+    - Example: SELECT * FROM Employees LIMIT 10, 5;  -- Skips the first 10 rows and returns the next 5 rows.
+
+
+9. **OFFSET Clause**
+   - Purpose: Skips a specific number of rows before starting to return rows.
+   - Usage: Used with LIMIT to paginate results.
+   - Example:
+     ```sql
+     SELECT column1, column2
+     FROM table_name
+     LIMIT 10 OFFSET 20;
+     ```
+
+10. **JOIN Clauses**
+   - Purpose: Combines rows from two or more tables based on a related column.
+   - Usage: Retrieves related data from multiple tables.
+   - Types:
+     - **INNER JOIN**: Returns rows with matching values in both tables.
+       ```sql
+       SELECT table1.column1, table2.column2
+       FROM table1
+       INNER JOIN table2 ON table1.common_column = table2.common_column;
+       ```
+     - **LEFT JOIN (LEFT OUTER JOIN)**: Returns all rows from the left table and matched rows from the right table.
+       ```sql
+       SELECT table1.column1, table2.column2
+       FROM table1
+       LEFT JOIN table2 ON table1.common_column = table2.common_column;
+       ```
+     - **RIGHT JOIN (RIGHT OUTER JOIN)**: Returns all rows from the right table and matched rows from the left table.
+       ```sql
+       SELECT table1.column1, table2.column2
+       FROM table1
+       RIGHT JOIN table2 ON table1.common_column = table2.common_column;
+       ```
+     - **FULL JOIN (FULL OUTER JOIN)**: Returns rows when there is a match in one of the tables.
+       ```sql
+       SELECT table1.column1, table2.column2
+       FROM table1
+       FULL JOIN table2 ON table1.common_column = table2.common_column;
+       ```
+
+11. **UNION and UNION ALL Clauses**
+    - Purpose: Combines the result sets of two or more SELECT statements.
+    - Usage: Merges rows from multiple queries.
+    - Types:
+      - **UNION**: Removes duplicate rows from the result set.
+        ```sql
+        SELECT column1 FROM table1
+        UNION
+        SELECT column1 FROM table2;
+        ```
+      - **UNION ALL**: Includes duplicate rows in the result set.
+        ```sql
+        SELECT column1 FROM table1
+        UNION ALL
+        SELECT column1 FROM table2;
+        ```
+
+12. **EXISTS Clause**
+    - Purpose: Tests for the existence of rows in a subquery.
+    - Usage: Used in a subquery to check if any rows are returned.
+    - Example:
+      ```sql
+      SELECT column1
+      FROM table_name
+      WHERE EXISTS (SELECT 1 FROM another_table WHERE condition);
+      ```
+
+13. **CASE Clause**
+    - Purpose: Provides conditional logic in SQL queries.
+    - Usage: Creates conditional expressions.
+    - Example:
+      ```sql
+      SELECT column1,
+             CASE
+               WHEN condition1 THEN result1
+               WHEN condition2 THEN result2
+               ELSE result3
+             END AS alias_name
+      FROM table_name;
+      ```
+
+14. **DISTINCT Clause**
+    - Purpose: Removes duplicate rows from the result set.
+    - Usage: Ensures only unique rows are returned.
+    - Example:
+      ```sql
+      SELECT DISTINCT column1
+      FROM table_name;
+      ```
+
+15. **WITH (Common Table Expressions, CTE) Clause**
+    - Purpose: Defines a temporary result set that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement.
+    - Usage: Useful for breaking complex queries into simpler parts.
+    - Example:
+      ```sql
+      WITH CTE AS (
+          SELECT column1, column2
+          FROM table_name
+          WHERE condition
+      )
+      SELECT column1
+      FROM CTE
+      WHERE another_condition;
+      ```
+
+
+
+

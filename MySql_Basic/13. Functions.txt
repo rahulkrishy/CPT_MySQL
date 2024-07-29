@@ -1,0 +1,223 @@
+-- =========
+-- Functions
+-- =========
+
+- **Built-In Functions**: MySQL provides a range of built-in functions for string manipulation, numeric calculations, date and time operations, aggregation, and conditional logic.
+- **User-Defined Functions**: Custom functions can be created to encapsulate reusable logic and calculations.
+- **Stored Procedures**: Useful for executing a series of SQL statements and managing complex operations.
+- **Error Handling**: While MySQL functions do not support traditional error handling, conditional logic can be used to manage potential issues.
+
+// Built-In Functions:
+
+   1. String Functions
+       - **`CONCAT()`**: Concatenates two or more strings.
+         ```sql
+         SELECT CONCAT('Hello', ' ', 'World'); -- Returns 'Hello World'
+         ```
+       - **`SUBSTRING()`**: Extracts a substring from a string.
+         ```sql
+         SELECT SUBSTRING('Hello World', 1, 5); -- Returns 'Hello'
+         ```
+       - **`LENGTH()`**: Returns the length of a string.
+         ```sql
+         SELECT LENGTH('Hello World'); -- Returns 11
+         ```
+       - **`UPPER()`**: Converts a string to uppercase.
+         ```sql
+         SELECT UPPER('Hello World'); -- Returns 'HELLO WORLD'
+         ```
+       - **`LOWER()`**: Converts a string to lowercase.
+         ```sql
+         SELECT LOWER('Hello World'); -- Returns 'hello world'
+         ```
+       - **`TRIM()`**: Removes leading and trailing spaces from a string.
+         ```sql
+         SELECT TRIM('  Hello World  '); -- Returns 'Hello World'
+         ```
+
+   2. Numeric Functions
+       - **`ROUND()`**: Rounds a number to a specified number of decimal places.
+         ```sql
+         SELECT ROUND(123.4567, 2); -- Returns 123.46
+         ```
+       - **`FLOOR()`**: Rounds a number down to the nearest integer.
+         ```sql
+         SELECT FLOOR(123.4567); -- Returns 123
+         ```
+       - **`CEIL()`**: Rounds a number up to the nearest integer.
+         ```sql
+         SELECT CEIL(123.4567); -- Returns 124
+         ```
+       - **`ABS()`**: Returns the absolute value of a number.
+         ```sql
+         SELECT ABS(-123.45); -- Returns 123.45
+         ```
+       - **`MOD()`**: Returns the remainder of a division operation.
+         ```sql
+         SELECT MOD(10, 3); -- Returns 1
+         ```
+
+   3. Date and Time Functions
+       - **`NOW()`**: Returns the current date and time.
+         ```sql
+         SELECT NOW(); -- Returns the current date and time
+         ```
+       - **`DATE_ADD()`**: Adds a specified time interval to a date.
+         ```sql
+         SELECT DATE_ADD('2024-07-29', INTERVAL 10 DAY); -- Returns '2024-08-08'
+         ```
+       - **`DATEDIFF()`**: Returns the difference in days between two dates.
+         ```sql
+         SELECT DATEDIFF('2024-08-08', '2024-07-29'); -- Returns 10
+         ```
+       - **`DATE_FORMAT()`**: Formats a date value according to a specified format.
+         ```sql
+         SELECT DATE_FORMAT('2024-07-29', '%Y-%m-%d'); -- Returns '2024-07-29'
+         ```
+       - **`YEAR()`**: Extracts the year part of a date.
+         ```sql
+         SELECT YEAR('2024-07-29'); -- Returns 2024
+         ```
+
+   4. Aggregate Functions
+       - **`SUM()`**: Calculates the sum of a numeric column.
+         ```sql
+         SELECT SUM(salary) FROM Employees;
+         ```
+       - **`AVG()`**: Calculates the average value of a numeric column.
+         ```sql
+         SELECT AVG(salary) FROM Employees;
+         ```
+       - **`COUNT()`**: Counts the number of rows in a result set.
+         ```sql
+         SELECT COUNT(*) FROM Employees;
+         ```
+       - **`MAX()`**: Returns the maximum value in a set.
+         ```sql
+         SELECT MAX(salary) FROM Employees;
+         ```
+       - **`MIN()`**: Returns the minimum value in a set.
+         ```sql
+         SELECT MIN(salary) FROM Employees;
+         ```
+
+   5. Conditional Functions
+       - **`IF()`**: Returns one value if a condition is true and another value if it's false.
+         ```sql
+         SELECT IF(salary > 50000, 'High', 'Low') AS SalaryLevel FROM Employees;
+         ```
+       - **`CASE`**: Provides conditional logic in SQL.
+         ```sql
+         SELECT name,
+                CASE
+                  WHEN salary > 50000 THEN 'High'
+                  ELSE 'Low'
+                END AS SalaryLevel
+         FROM Employees;
+         ```
+       - **`NULLIF()`**: Returns NULL if two expressions are equal.
+         ```sql
+         SELECT NULLIF(salary, 50000) AS SalaryResult FROM Employees;
+         ```
+       - **`COALESCE()`**: Returns the first non-NULL value in a list of expressions.
+         ```sql
+         SELECT COALESCE(salary, 0) AS Salary FROM Employees;
+         ```
+
+// User-Defined Functions:
+
+   1. Creating a User-Defined Function
+       - Syntax:
+         ```sql
+         CREATE FUNCTION function_name (parameters  type)
+         RETURNS return_type
+         DETERMINISTIC (or) NO SQL (or)READS SQL DATA
+         BEGIN
+           -- Function logic
+           RETURN value;
+         END;
+         ```
+
+       - Example:
+         ```sql
+         DELIMITER //
+         CREATE FUNCTION GetSalaryRange (salary DECIMAL(10,2))
+         RETURNS VARCHAR(20)
+         DETERMINISTIC
+         READS SQL DATA
+         BEGIN
+           DECLARE range VARCHAR(20);
+           IF salary > 70000 THEN
+             SET range = 'High';
+           ELSE
+             SET range = 'Low';
+           END IF;
+           RETURN range;
+         END //
+         DELIMITER ;
+         ```
+      - MySQL requires that functions used with binary logging be explicitly declared as either 'DETERMINISTIC', 'NO SQL', or 'READS SQL DATA'.
+        This is a security feature to ensure that the function's behavior is consistent and predictable across different server setups, especially in replication scenarios.
+        Need to specify one of these characteristics in your function declaration:
+        - DETERMINISTIC: Indicates that the function always produces the same result for the same input parameters.
+        - NO SQL: Indicates that the function does not contain any SQL statements.
+        - READS SQL DATA: Indicates that the function reads data but does not modify it.
+
+   2. Using a User-Defined Function
+       ```sql
+       SELECT name, GetSalaryRange(salary) AS SalaryRange
+       FROM Employees;
+       ```
+
+// Stored Procedures vs Functions:
+
+   1. Stored Procedures
+       - Used to perform a sequence of operations and can modify data. They do not return a value but can output results.
+       - Example:
+         ```sql
+         DELIMITER //
+         CREATE PROCEDURE GetEmployeeDetails(IN emp_id INT)
+         BEGIN
+           SELECT * FROM Employees WHERE id = emp_id;
+         END //
+         DELIMITER ;
+         ```
+
+   2. Functions
+       - Return a single value and can be used in SQL statements. They are often used for calculations and transformations.
+       - Example:
+         ```sql
+         SELECT GetSalaryRange(salary) FROM Employees;
+         ```
+
+// Error Handling in MySQL Functions:
+
+   1. Error Handling in Functions
+       - MySQL does not support traditional error handling within functions like try-catch blocks found in other programming languages. 
+         Instead, you can use conditional logic to handle potential issues.
+
+       - Example:
+         ```sql
+         DELIMITER //
+         CREATE FUNCTION SafeDivide(dividend DECIMAL(10,2), divisor DECIMAL(10,2))
+         RETURNS DECIMAL(10,2)
+         BEGIN
+           DECLARE result DECIMAL(10,2);
+           IF divisor = 0 THEN
+             RETURN NULL; -- Handle division by zero
+           ELSE
+             SET result = dividend / divisor;
+             RETURN result;
+           END IF;
+         END //
+         DELIMITER ;
+         ```
+
+   2. Checking for Errors
+       - After creating a function, you can check for errors or issues using the `SHOW ERRORS` command.
+         ```sql
+         SHOW ERRORS;
+         ```
+
+
+

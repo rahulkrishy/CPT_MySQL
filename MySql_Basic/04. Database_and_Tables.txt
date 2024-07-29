@@ -1,0 +1,60 @@
+-- =========
+-- Database
+-- =========
+
+// Creation of Database:
+Steps to create a Database:
+1. Choose a DBMS (Database Management System )
+2. Connect to the server using a command-line tool or a graphical user interface.
+3. Create a new Database
+4. Once the database is created, you can use the USE statement to create tables in the database.
+5. Create Tables and Insert Data
+
+// Creating a new Database:
+We use the 'CREATE DATABASE' statement to create a new database. These commands are not case-sensitive.
+
+Command: CREATE DATABASE databaseName;
+
+Also to avoid errors we can use:
+Command: CREATE DATABASE IF NOT EXISTS databaseName;
+'IF NOT EXISTS' and 'IF EXISTS' clauses are commonly used in conjunction with the 'CREATE TABLE' and 'DROP TABLE' statements to avoid errors.
+
+// Deletion of Database:
+We use the 'DROP DATABASE' statement to delete a database.
+Dropping a database means deleting the entire database, including all tables, data, and other objects within it. 
+DROP Is a DDL Command. These commands are not case-sensitive.
+
+Command: DROP DATABASE databaseName;
+
+Also to avoid errors we can use:
+Command: DROP DATABASE IF EXISTS databaseName;
+
+// Using a Database:
+We use the 'USE DATABASE' statement to use a database. These commands are not case-sensitive.
+Command: USE databaseName;
+
+// Showing a Database:
+We use the 'SHOW DATABASES' statement to see all the database present in a server.
+Command: SHOW DATABASES;
+
+-- =========
+-- Tables
+-- =========
+
+// Creating a new Table:
+Use 'Create TABLE' statement to create a table in DB.
+Command: CREATE TABLE TableName (Variables Datatype);
+
+// Inserting values into Table:
+Use 'INSERT INTO' statement to insert a values in table.
+Command: INSERT INTO TableName (Variables) VALUES;
+
+// Showing Table in Database:
+Use 'SHOW TABLES' statement to see a tables in DB.
+Command: SHOW TABLES;
+
+// View all the values in Table:
+The 'SELECT' statement is used to select data from a database.
+Use 'SELECT columnName FROM TableName' - To see specific values of a column
+Use 'SELECT * FROM TableName' - To see all values or entire table
+Command: SELECT * FROM TableName;

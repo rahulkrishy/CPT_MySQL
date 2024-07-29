@@ -1,0 +1,194 @@
+-- ================
+-- SQL constraints
+-- ================
+
+SQL constraints are rules applied to columns or tables to ensure the integrity and accuracy of the data. 
+Constraints help maintain data quality by enforcing specific rules on data within the database. 
+Here are the main types of SQL constraints and their purposes
+• Unique constraint: Ensures values in a column are unique across the table.
+• Not null constraint: Ensures a column cannot have a null value.
+• Check constraint: Enforces a condition to be true for each row.
+• Default constraint: Provides a default value for a column if no value is specified.
+• Primary key: Enforces the uniqueness of values in one or more columns
+• Foreign key: Enforces a link between two tables by referencing a column in one table that is a primary key in another table.
+
+// UNIQUE:
+Purpose: Ensures that all values in a column are unique across the table.
+Usage:   Used to prevent duplicate values in a column.
+Example:
+CREATE TABLE Users (
+    UserID INT UNIQUE,
+    Username VARCHAR(50) UNIQUE
+);
+
+// NOT NULL:
+Purpose: Ensures that a column cannot have a NULL value.
+Usage:   Used when you want to ensure that a column must always have a value.
+Example:
+CREATE TABLE Employees (
+    EmployeeID INT NOT NULL,
+    FirstName VARCHAR(50) NOT NULL
+);
+
+// CHECK:
+Purpose: Ensures that all values in a column satisfy a specific condition.
+Usage:   Used to enforce domain integrity by limiting the values that can be inserted into a column.
+Example:
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    Age INT CHECK (Age >= 18)
+);
+
+// DEFAULT:
+Purpose: Provides a default value for a column when no value is specified.
+Usage:   Used to automatically assign a default value to a column if none is provided during insert operations.
+Example:
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    InStock INT DEFAULT 0
+);
+
+// PRIMARY KEY:
+Purpose: Uniquely identifies each record in a table. A primary key column cannot contain NULL values and must have unique values.
+Usage:   Used to define a unique identifier for each row in a table.
+Example:
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    OrderDate DATE
+);
+
+// FOREIGN KEY: 
+Purpose: Establishes a relationship between columns in two tables. Ensures that the value in a column (or set of columns) matches a value in the primary key column of another table.
+Usage:   Used to maintain referential integrity between tables.
+Example:
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
+-- =====
+-- keys
+-- =====
+
+In SQL, keys are fundamental concepts used to identify and manage relationships between data in tables. 
+They ensure data integrity and optimize performance by organizing how data is accessed. 
+Here’s a detailed explanation of the different types of keys:
+• Primary Key: Unique, non-null identifier for rows.
+• Foreign Key: Creates relationships between tables.
+• Unique Key: Ensures uniqueness of column values.
+• Candidate Key: Potential primary keys.
+• Alternate Key: Candidate keys not chosen as primary keys.
+• Composite Key: Primary key made up of multiple columns.
+• Super Key: Any set of columns that uniquely identify rows.
+
+// 1. Primary Key:
+Purpose: Uniquely identifies each record in a table.
+Characteristics:
+    - Must be unique for each record.
+    - Cannot contain NULL values.
+    - Each table can have only one primary key.
+Usage: Ensures that each row in a table is uniquely identifiable.
+Example:
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50)
+);
+
+// 2. Foreign Key:
+Purpose: Establishes a relationship between columns in two tables, enforcing referential integrity.
+Characteristics:
+    - The foreign key in the child table refers to the primary key in the parent table.
+    - Ensures that the value in the foreign key column matches a value in the referenced primary key column.
+Usage: Maintains consistency and integrity between related tables.
+Example:
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    EmployeeID INT,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+
+Cascading in Foreign Key:
+Cascading are a set of rules which dictate what actions should be taken automatically when a referenced row in the parent table is modified or deleted.
+1.CASCADE : If a row in the parent table is updated or deleted, all related rows in the child table will be automatically updated or deleted.
+2.SET NULL: If a row in the parent table is updated or deleted, all corresponding foreign key values in the child table will be set to NULL.
+3.RESTRICT or NO ACTION: Blocks the modification or deletion of a referenced row in the parent table if related rows exist in the child table, thus maintaining referential integrity.
+These cascading actions help maintain the integrity of the data across related tables in the database.
+1.ON DELETE CASCADE 
+2.ON UPDATE CASCADE
+
+1.ON DELETE CASCADE: 
+The 'ON DELETE CASCADE' clause indicates that if a row in the parent table (parent_table) is deleted, 
+all corresponding rows in the child table (child_table) will be automatically deleted as well.
+QUERY:
+CREATE TABLE childTableName (
+childId INT PRIMARY KEY,
+baseId INT,
+FOREIGN KEY (baseId) REFERENCES base TableName(baseId)
+ON DELETE CASCADE
+);
+
+2.ON UPDATE CASCADE: 
+The 'ON UPDATE CASCADE' clause indicates that if a row in the parent table (parent_table) is updated, 
+all corresponding rows in the child table (child_table) will be automatically updated as well.
+QUERY:
+CREATE TABLE childTableName (
+childId INT PRIMARY KEY,
+baseId INT,
+FOREIGN KEY (baseId) REFERENCES parentTableName(childId)
+ON UPDATE CASCADE
+):
+
+// 3. Unique Key:
+Purpose: Ensures that all values in a column (or a set of columns) are unique across the table.
+Characteristics:
+    - Allows NULL values, but each NULL is considered unique.
+    - A table can have multiple unique keys.
+Usage: Prevents duplicate values in specified columns.
+Example:
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE
+);
+
+// 4. Candidate Key:
+Purpose: A set of columns that can uniquely identify rows in a table. One of the candidate keys is selected to be the primary key.
+Characteristics:
+    - Can potentially serve as the primary key.
+    - There can be multiple candidate keys in a table.
+Usage: Identifies potential primary keys.
+Example:
+In a table with EmployeeID and Email both being unique, both can be candidate keys. The EmployeeID might be chosen as the primary key.
+
+// 5. Alternate Key:
+Purpose: Any candidate key that is not chosen as the primary key.
+Characteristics:
+    - Provides an alternative way to identify rows in a table.
+Usage: Offers additional unique identification methods.
+Example:
+If EmployeeID is the primary key, then Email could be an alternate key.
+
+// 6. Composite Key:
+Purpose: A primary key composed of two or more columns.
+Characteristics:
+    - Used when a single column cannot uniquely identify rows.
+Usage: Ensures uniqueness by combining multiple columns.
+Example:
+CREATE TABLE Enrollments (
+    StudentID INT,
+    CourseID INT,
+    EnrollmentDate DATE,
+    PRIMARY KEY (StudentID, CourseID)
+);
+
+// 7. Super Key:
+Purpose: A set of one or more columns that can uniquely identify rows in a table.
+Characteristics:
+    - Includes the primary key and any other columns or sets of columns that uniquely identify records.
+Usage: Helps in identifying the primary key by encompassing all possible candidate keys.
+Example:
+In a table with StudentID, Email, and PhoneNumber, each of these can form a super key.
+

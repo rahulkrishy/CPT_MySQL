@@ -1,0 +1,46 @@
+-- ================
+-- Datatypes in SQL
+-- ================
+Data types are used to specify the type of data that a column can store.
++--------------------+--------------------------------------------------------+
+| Category           | Data Types                                             |
+|--------------------|--------------------------------------------------------|
+| Numeric            | INTEGER/ INT, SMALLINT, BIGINT, DECIMAL, FLOAT, DOUBLE |
+| Character/ String  | CHAR(n), VARCHAR(n), TEXT                              |
+| Date & Time        | DATE, TIME, DATETIME, TIMESTAMP                        |
+| Boolean            | BOOLEAN                                                |
+| Binary             | BINARY(n), VARBINARY(n), BLOB                          |
++--------------------+--------------------------------------------------------+
+
+// Numeric Datatypes: 
+1. INT      - Used for storing whole numbers without decimal points. (-2,147,483,648 to 2,147,483,647 (signed integer))
+2. SMALLINT - Used for storing small whole numbers. (-32,768 to 32,767 (signed integer))
+3. BIGINT   - Used for storing large whole numbers. (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807)
+4. FLOAT    - Used for storing decimal numbers. (4-byte)
+5. DOUBLE   - Used for storing decimal numbers. (8-byte)
+6. DECIMAL(p,s) - Used for exact numeric representation. 
+  p is the precision(The total number of digits that can be stored, both to the left and right of the decimal point.) and 
+  s is the scale(The number of digits that can be stored to the right of the decimal point).
+By default all the numeric datatypes can have negative as well as positive values. 
+This restrict the range so if we know there is only +ve values which is stored we use 'UNSIGNED' attribute (0-255).
+for eg- salary can never be in negative or age
+
+// Character Datatypes: 
+1. CHAR(n)    - Fixed-length character strings can be stored. (0-255)
+2. VARCHAR(n) - Variable-length character strings can be stored.(0-255)
+3. TEXT       - Variable-length character string with no specified limit.
+
+// Date & Time Datatypes:
+1. DATE  - Used for storing date values. (YYYY-MM-DD)
+2. TIME  - Used for storing time values. (hh:mm:ss)
+3. DATETIME/TIMESTAMP- Used for storing date and time values. (yyyy-mm-dd hh:mm:ss)
+
+// Boolean Datatypes:
+1. BOOLEAN - Used to store a true or false value.
+
+// Binary Datatypes:
+1. BINARY(n)    - Used for fixed-length binary data.
+2. VARBINARY(n) - Used for storing variable-length binary data.
+3.BLOB (Binary Large Object) - Used for storing large amounts of binary data.(var len)
+
+

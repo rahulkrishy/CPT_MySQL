@@ -1,0 +1,123 @@
+-- ======================
+-- Types of SQL Commands
+-- ======================
+SQL commands are divided into different categories based on their functionalities.
+1. Data Query Language (DQL) Commands
+2. Data Definition Language (DDL) Commands
+3. Data Manipulation Language (DML) Commands
+4. Data Control Language (DCL) Commands
+5. Transaction Control Language (TCL) Commands
+
+
+-- =====================================
+-- 1. Data Query Language (DQL) Commands
+-- =====================================
+DQL is used to retrieve data from the database
+Commands: SELECT
+
+// Commands: SELECT - Retrieves data from one or more tables.
+Example:
+SELECT * FROM Employees;
+SELECT FirstName, LastName FROM Employees WHERE Age > 25;
+
+
+-- =========================================
+-- 2.Data Definition Language (DDL) Commands
+-- =========================================
+DDL commands are used to define and modify database objects like tables, indexes, and constraints.
+Commands: CREATE, ALTER, DROP, TRUNCATE, RENAME
+
+// Commands: CREATE - Creates new database objects like tables, views, indexes.
+Example:
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Age INT
+);
+
+// Commands: ALTER - Modifies the structure of existing database objects.
+Example:
+ALTER TABLE Employees ADD COLUMN Email VARCHAR(100);
+ALTER TABLE Employees MODIFY COLUMN Age SMALLINT;
+ALTER TABLE Employees DROP COLUMN Email;
+
+// Commands: DROP - Deletes database objects.
+Example:
+DROP TABLE Employees;
+
+// Commands: TRUNCATE - Retrieves data from one or more tables.
+Example:
+TRUNCATE TABLE Employees;
+
+// Commands: RENAME - Removes all records from a table, but keeps the structure.
+Example:
+RENAME TABLE Employees TO Staff;
+ALTER TABLE Staff CHANGE COLUMN LastName Surname VARCHAR(50);
+
++----------+--------------------------------------+-----------------------------------------+-----------------------------+
+| Command  | TRUNCATE                             | DELETE                                  | DROP                        |
++----------+--------------------------------------+-----------------------------------------+-----------------------------+
+| Purpose  | Remove all rows, keep structure.     | Remove specific rows,can be rolled back | Remove table and structure  |
+| Speed    | Fast                                 | Slower, depending on conditions.        | Immediate and permanent     |
+| Rollback | Cannot roll back with FK constraints | Can roll back if in a transaction       | Cannot roll back            |
+| Triggers | Does not activate DELETE triggers    | Activates DELETE triggers.              | Does not activate triggers  |
++----------+--------------------------------------+-----------------------------------------+-----------------------------+
+
+
+-- ===========================================
+-- 3.Data Manipulation Language (DML) Commands
+-- ===========================================
+DML is used to manipulate data stored in the database.
+Commands: INSERT, UPDATE, DELETE, MERGE
+
+// Commands: INSERT - Adds new records to a table.
+Example:
+INSERT INTO Employees (EmployeeID, FirstName, LastName, Age)
+VALUES (1, 'John', 'Doe', 30);
+
+// Commands: UPDATE - Modifies existing records in a table.
+Example:
+UPDATE Employees
+SET Age = 31
+WHERE EmployeeID = 1;
+
+// Commands: DELETE - Removes records from a table.
+Example:
+DELETE FROM Employees WHERE EmployeeID = 1;
+
+// Commands: MERGE - MySQL does not support the MERGE statement directly. 
+                    Instead, you can achieve similar functionality using a combination of INSERT, ON DUPLICATE KEY UPDATE operations.
+Example:
+-- Use INSERT with ON DUPLICATE KEY UPDATE to update existing records and insert new records
+INSERT INTO Staff (EmployeeID, FirstName, Surname, Age, DepartmentID)
+SELECT EmployeeID, FirstName, Surname, Age, DepartmentID
+FROM NewEmployees
+ON DUPLICATE KEY UPDATE
+    FirstName = VALUES(FirstName),
+    Surname = VALUES(Surname),
+    Age = VALUES(Age),
+    DepartmentID = VALUES(DepartmentID);
+
+
+-- ========================================
+-- 4. Data Control Language (DCL) Commands
+-- ========================================
+DCL deals with the control and security of data within the database.
+Commands: GRANT, REVOKE
+
+// Commands: GRANT - Grants privileges to users.
+Example:
+GRANT SELECT, INSERT ON Employees TO 'username';
+
+// Commands: REVOKE - Removes privileges from users.
+Example:
+REVOKE SELECT, INSERT ON Employees FROM 'username';
+
+
+-- =============================================
+-- 5.Transaction Control Language (ICL) Commands
+-- =============================================
+TCL is used to manage transactions within a database.
+Commands: COMMIT, ROLLBACK, SAVEPOINT, START TRANSACTION, RELEASE SAVEPOINT, SET TRANSACTION
+

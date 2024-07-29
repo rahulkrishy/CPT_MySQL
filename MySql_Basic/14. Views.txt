@@ -1,0 +1,106 @@
+-- ======
+-- Views
+-- ======
+A view in MySQL is a virtual table that is based on the result set of a SQL query, derived from one or more tables. 
+A view is a saved query that can be treated like a table. It doesn't store the data itself but displays data stored in other tables.
+Views can simplify complex queries, enhance security by restricting access to specific data, and provide a consistent, read-only representation of the data.
+
+
+// Types of Views:
+    1.Simple View
+      - Based on a single table.
+      - Does not contain functions, grouping, or multiple tables.
+      - Example:
+        ```sql
+        CREATE VIEW SimpleView AS
+        SELECT id, name FROM Employees;
+        ```
+    2.Complex View
+      - Based on multiple tables and can include functions, grouping, and joins.
+      - Example:
+        ```sql
+        CREATE VIEW ComplexView AS
+        SELECT e.id, e.name, d.name AS department
+        FROM Employees e
+        JOIN Departments d ON e.department_id = d.id;
+        ```
+    3.Read-Only View
+      - Cannot be updated directly.
+      - Typically complex views involving joins, aggregate functions, or distinct clauses.
+      - Example:
+        ```sql
+        CREATE VIEW ReadOnlyView AS
+        SELECT department_id, COUNT(*) AS num_employees
+        FROM Employees
+        GROUP BY department_id;
+        ```
+    4.Updatable View
+      - Can be updated if certain conditions are met (e.g., based on a single table without aggregate functions).
+      - Example:
+        ```sql
+        CREATE VIEW UpdatableView AS
+        SELECT id, name, salary
+        FROM Employees;
+        ```
+
+// Creating a View:
+   CREATE VIEW view_name AS
+   SELECT column1, column2, ...
+   FROM table_name
+   WHERE condition;
+
+   - Example:
+     CREATE VIEW EmployeeView AS
+     SELECT id, name, salary
+     FROM Employees
+     WHERE salary > 50000;
+
+// Using Views:
+
+   1. Querying a View:
+       SELECT * FROM EmployeeView;
+
+   2. Updating Data via an Updatable View:
+       UPDATE UpdatableView
+       SET salary = 80000
+       WHERE id = 1;
+
+   3. Deleting Data via an Updatable View:
+       DELETE FROM UpdatableView
+       WHERE id = 1;
+
+// Modifying a View:
+
+   1. Alter a View:
+       ALTER VIEW view_name AS
+       SELECT column1, column2, ...
+       FROM table_name
+       WHERE condition;
+
+       - Example:
+         ALTER VIEW EmployeeView AS
+         SELECT id, name, salary, department_id
+         FROM Employees
+         WHERE salary > 60000;
+
+// Dropping a View
+
+   1. Drop a View:
+       DROP VIEW IF EXISTS view_name;
+
+       - Example:
+         DROP VIEW IF EXISTS EmployeeView;
+
+// Advantages of Views
+
+   1. Simplicity: Simplify complex queries by creating a view with a simpler query interface.
+   2. Security: Restrict access to sensitive data by providing a view that only includes specific columns or rows.
+   3. Consistency: Ensure consistent results by creating views that standardize commonly used queries.
+   4. Reusability: Reuse the same query logic across different parts of the application.
+
+// Disadvantages of Views
+
+   1. Performance: Views can sometimes degrade performance, especially complex views with joins and aggregate functions.
+   2. Maintenance: Keeping views up-to-date with schema changes can require additional maintenance.
+   3. Restrictions: Not all views are updatable, and certain operations cannot be performed through views.
+

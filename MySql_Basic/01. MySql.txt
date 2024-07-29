@@ -1,0 +1,35 @@
+-- =========
+-- Database
+-- =========
+Database: Collection of data is called as database.
+DBMS: A software application to manage our data.
+Database types:
+1. Relational database (use tables to store data)
+2. Non-Relational database (data is not stored in table)
+
+-- ====
+-- SQL
+-- ====
+We need a language to interact with databases., So we use SQL to interact with DB, do some CRUD(Create, Read, Update, Delete) operations on the data.
+SQL allows users to perform a variety of tasks related to databases:
+  • Retrieving Data: Extracting precise information from a database through queries.
+  • Manipulating Data: Adding, modifying, or removing records within a database.
+  • Defining Data: Creating and adjusting the structure of a database, including tables, views, and indexes.
+  • Controlling Data: Managing database access by granting or revoking permissions.
+
+-- ======
+-- MySQL
+-- ======
+MySQL is an open-source relational database management system (RDBMS) that uses structured query language (SQL) to manage and manipulate data.
+It is widely used for web applications, data warehousing, and various other types of data storage needs.
+MySQL is known for its speed, reliability, and ease of use, making it a popular choice for both small-scale applications and large enterprise solutions.
+
+MySQL Server:  Database server where data is stored, managed, and accessed.
+MySQL Workbench: MySQL Workbench is a unified visual tool for database architects, developers, and DBAs.
+It provides data modeling, SQL development, and comprehensive administration tools for server configuration, user administration, and backup.
+Key features include:
+- SQL Editor: Allows you to create, edit, and run SQL queries.
+- Data Modeling: Enables you to design and visualize database schemas.
+- Server Administration: Offers tools for configuring and managing MySQL servers.
+- Backup and Recovery: Facilitates database backup and restore operations.
+

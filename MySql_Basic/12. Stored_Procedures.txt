@@ -1,0 +1,92 @@
+-- ==================
+-- Stored procedures
+-- ==================
+
+Stored procedures are a powerful feature in SQL that allow you to encapsulate a series of SQL statements into a single, reusable procedure. 
+They are stored in the database and can be executed with a simple call, which can help in maintaining, reusing, and securing SQL code.
+
+// Stored Procedure Without Parameters:
+A stored procedure without parameters performs the same operation every time it is called, as it does not take any input values.
+
+Creating a Stored Procedure:
+
+DELIMITER //
+CREATE PROCEDURE GetAllEmployees()
+BEGIN
+    SELECT * 
+    FROM Employees 
+END //
+DELIMITER ;
+
+Calling a Stored Procedure:
+
+CALL GetAllEmployees();
+
+- DELIMITER: Changes the default statement delimiter (usually ;) to something else (like //) to allow the procedure definition to contain multiple statements.
+- CREATE PROCEDURE: Defines the procedure with a name (GGetAllEmployees)
+- BEGIN ... END: Encapsulates the SQL statements that make up the procedure.
+- CALL: Executes the stored procedure.
+
+
+// Stored Procedure With Parameters:
+A stored procedure with parameters can perform operations based on dynamic input values, making it more versatile.
+
+Creating a Stored Procedure:
+
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeeDetails(IN empID INT)
+BEGIN
+    SELECT * 
+    FROM Employees 
+    WHERE id = empID;
+END //
+
+DELIMITER ;
+
+Calling a Stored Procedure:
+
+CALL GetEmployeeDetails(1);
+
+- IN empID INT: Defines an input parameter named empID of type INT.
+- In MySQL, the @ symbol is used to denote user-defined session variables. These variables have the following characteristics:
+  - Scope: Session variables are specific to the current session and persist until the session ends or the variable is explicitly changed or removed.
+  - Flexibility: They can be used to store values temporarily for use within the same session, making them useful for passing data between different parts of a query or procedure call.
+
+
+// Key Components
+1. Parameters:
+Types of Parameters:
+
+  1.IN: The parameter is used for input. The caller must supply a value.
+    ```sql
+    CREATE PROCEDURE ExampleIN(IN paramName INT)
+    BEGIN
+        -- SQL statements
+    END;
+    ```
+
+  2.OUT: The parameter is used for output. The procedure will return a value to the caller.
+    ```sql
+    CREATE PROCEDURE ExampleOUT(OUT paramName INT)
+    BEGIN
+        SET paramName = 100;
+    END;
+    ```
+
+  3.INOUT: The parameter is used for both input and output. 
+           The caller supplies an initial value, and the procedure can modify it.
+    ```sql
+    CREATE PROCEDURE ExampleINOUT(INOUT paramName INT)
+    BEGIN
+        SET paramName = paramName + 100;
+    END;
+    ```
+
+2. Control Flow Statements:
+Stored procedures can include control flow statements like 
+'IF', 'CASE', 'LOOP', 'WHILE', and 'REPEAT' to implement complex logic.
+
+
+
+

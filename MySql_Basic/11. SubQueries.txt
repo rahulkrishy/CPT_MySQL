@@ -1,0 +1,100 @@
+-- ===========================
+-- Subqueries/Nested Queries
+-- ===========================
+Subqueries, also known as nested queries, are queries embedded within another SQL query. 
+They are used to perform operations that require multiple steps to obtain results. 
+The subquery can return individual values or a result set that can be used by the main query.
+
+// Types of Subqueries:
+
+1. Single-Row Subqueries:
+   - Return a single row with one column.
+   - Used with comparison operators (=, <, >, etc.).
+Example:
+SELECT name 
+FROM Employees 
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+
+2. Multiple-Row Subqueries:
+   - Return multiple rows with one column.
+   - Used with operators like IN, ANY, ALL.
+Example:
+SELECT name 
+FROM Employees 
+WHERE department_id IN (SELECT id FROM Departments WHERE location = 'New York');
+
+3. Multiple-Column Subqueries:
+   - Return multiple rows and multiple columns.
+   - Used in clauses like IN, EXISTS, etc.
+Example:
+SELECT name 
+FROM Employees 
+WHERE (department_id, salary) IN (SELECT department_id, MAX(salary) FROM Employees GROUP BY department_id);
+
+// Usage in Different Clauses:
+
+1. In the SELECT Clause:
+    - Used to calculate or retrieve a value that is then displayed in the main query results.
+Example:
+SELECT name, 
+       (SELECT AVG(salary) FROM Employees) AS AverageSalary 
+FROM Employees;
+
+2. In the FROM Clause:
+   - Treated as a temporary table within the main query.
+Example:
+SELECT name, average_salary
+FROM (SELECT department_id, AVG(salary) AS average_salary 
+      FROM Employees 
+      GROUP BY department_id) AS dept_avg
+WHERE average_salary > 50000;
+
+3. In the WHERE Clause:
+   - Used to filter results based on the subquery result.
+Example:
+SELECT name 
+FROM Employees 
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+
+4. In the HAVING Clause:
+   - Used to filter groups based on the subquery result.
+Example:
+SELECT department_id, AVG(salary) 
+FROM Employees 
+GROUP BY department_id 
+HAVING AVG(salary) > (SELECT AVG(salary) FROM Employees);
+
+// Correlated vs. Non-Correlated Subqueries:
+
+1. Non-Correlated Subqueries:
+   - Can be executed independently of the main query.
+   - Execute once for the entire query.
+Example:
+SELECT name 
+FROM Employees 
+WHERE salary > (SELECT AVG(salary) FROM Employees);
+
+2. Correlated Subqueries:
+   - Reference columns from the outer query.
+   - Execute once for each row processed by the outer query.
+Example:
+SELECT name 
+FROM Employees e1 
+WHERE salary > (SELECT AVG(salary) FROM Employees e2 WHERE e1.department_id = e2.department_id);
+
+--
+Find Nth highest salary from a table?
+
+To find the Nth highest salary in a table, you typically use a combination of subqueries or ranking functions(For databases that support window functions, like MySQL 8.0+)
+
+Using Subqueries:
+
+-- Find the Nth highest salary (e.g., 3rd highest salary)
+SELECT DISTINCT Salary
+FROM Employees
+ORDER BY Salary DESC
+LIMIT 1 OFFSET (N - 1);
+
+Explanation:
+- ORDER BY Salary DESC: Orders the salaries in descending order.
+- LIMIT 1 OFFSET (N - 1): Skips the first (N - 1) salaries and returns the next one, which is the Nth highest.

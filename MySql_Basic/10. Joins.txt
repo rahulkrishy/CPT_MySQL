@@ -1,0 +1,135 @@
+-- =======
+-- Joins
+-- =======
+Joins in SQL are used to combine rows from two or more tables based on a related column between them. 
+They allow you to retrieve data from multiple tables in a single query.
+Joins are fundamental in SQL for querying data across multiple tables. 
+Depending on the requirement, you can choose the appropriate type of join to combine rows from different tables effectively.
+
+Types of Joins:
+1. INNER JOIN
+2. LEFT JOIN (LEFT OUTER JOIN)
+3. RIGHT JOIN (RIGHT OUTER JOIN)
+4. FULL JOIN (FULL OUTER JOIN)
+5. CROSS JOIN
+6. SELF JOIN
+7. LEFT EXCLUSIVE JOIN
+8. RIGHT EXCLUSIVE JOIN
+9. FULL EXCLUSIVE JOIN
+
+1. INNER JOIN
+Purpose: Retrieves rows with matching values in both tables.
+Syntax:
+SELECT columns
+FROM table1
+INNER JOIN table2 ON table1.common_column = table2.common_column;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+INNER JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+Explanation: This query retrieves employee names and their corresponding department names, including only rows where there is a match in both Employees and Departments.
+
+2. LEFT JOIN (LEFT OUTER JOIN)
+Purpose: Retrieves all rows from the left table and matched rows from the right table. Unmatched rows from the right table will contain NULL.
+Syntax:
+SELECT columns
+FROM table1
+LEFT JOIN table2 ON table1.common_column = table2.common_column;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+LEFT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+Explanation: This query retrieves all employees, along with their department names. If an employee is not assigned to any department, the department name will be NULL.
+
+3. RIGHT JOIN (RIGHT OUTER JOIN)
+Purpose: Retrieves all rows from the right table and matched rows from the left table. Unmatched rows from the left table will contain NULL.
+Syntax:
+SELECT columns
+FROM table1
+RIGHT JOIN table2 ON table1.common_column = table2.common_column;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+RIGHT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+Explanation: This query retrieves all departments, along with employee names. If a department does not have any employees, the employee name will be NULL.
+
+4. FULL JOIN (FULL OUTER JOIN)
+Purpose: Retrieves rows when there is a match in one of the tables. Rows from both tables will be included, with NULLs where there is no match.
+Syntax:
+SELECT columns
+FROM table1
+FULL JOIN table2 ON table1.common_column = table2.common_column;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+FULL JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID;
+Explanation: This query retrieves all employees and all departments. Where there is no match, the results will include NULLs.
+
+5. CROSS JOIN
+Purpose: Produces a Cartesian product of the two tables. Every row in the first table is paired with all rows in the second table.
+Syntax:
+SELECT columns
+FROM table1
+CROSS JOIN table2;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+CROSS JOIN Departments;
+Explanation: This query pairs each employee with each department, generating all possible combinations.
+
+6. SELF JOIN
+Purpose: Joins a table to itself.
+Syntax:
+SELECT a.column1, b.column2
+FROM table_name a, table_name b
+WHERE condition;
+Example:
+SELECT e1.Name AS EmployeeName, e2.Name AS ManagerName
+FROM Employees e1
+INNER JOIN Employees e2 ON e1.ManagerID = e2.EmployeeID;
+Explanation: This query retrieves employees and their managers by joining the Employees table to itself.
+
+7. LEFT EXCLUSIVE JOIN
+Purpose: Retrieves rows from the left table that do not have matching rows in the right table.
+Syntax:
+SELECT columns
+FROM table1
+LEFT JOIN table2 ON table1.common_column = table2.common_column
+WHERE table2.common_column IS NULL;
+Example:
+SELECT Employees.Name
+FROM Employees
+LEFT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+WHERE Departments.DepartmentID IS NULL;
+Explanation: This query retrieves employees who are not assigned to any department.
+
+8. RIGHT EXCLUSIVE JOIN
+Purpose: Retrieves rows from the right table that do not have matching rows in the left table.
+Syntax:
+SELECT columns
+FROM table1
+RIGHT JOIN table2 ON table1.common_column = table2.common_column
+WHERE table1.common_column IS NULL;
+Example:
+SELECT Departments.DepartmentName
+FROM Employees
+RIGHT JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+WHERE Employees.DepartmentID IS NULL;
+Explanation: This query retrieves departments that do not have any employees assigned.
+
+9. FULL EXCLUSIVE JOIN
+Purpose: Retrieves rows from both tables that do not have matching rows in the other table.
+Syntax:
+SELECT columns
+FROM table1
+FULL JOIN table2 ON table1.common_column = table2.common_column
+WHERE table1.common_column IS NULL OR table2.common_column IS NULL;
+Example:
+SELECT Employees.Name, Departments.DepartmentName
+FROM Employees
+FULL JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+WHERE Employees.DepartmentID IS NULL OR Departments.DepartmentID IS NULL;
+Explanation: This query retrieves employees not assigned to any department and departments without any employees.
+
+
+

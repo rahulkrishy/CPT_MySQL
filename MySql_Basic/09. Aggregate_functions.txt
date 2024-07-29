@@ -1,0 +1,56 @@
+-- ===================
+-- Aggregate functions
+-- ===================
+Aggregate functions in SQL are used to perform calculations on a set of values and return a single value. 
+They are commonly used with the 'GROUP BY' clause to summarize data.
+
+1. COUNT()
+   Purpose: Counts the number of rows or non-NULL values in a column.
+   Usage: COUNT(column_name) counts non-NULL values in a column; COUNT(*) counts all rows.
+   Example:
+   SELECT COUNT(*) AS TotalEmployees
+   FROM Employees;
+
+2. SUM()
+   Purpose: Calculates the total sum of numeric values in a column.
+   Usage: SUM(column_name) returns the sum of the values in the specified column.
+   Example:
+   SELECT SUM(Salary) AS TotalSalary
+   FROM Employees;
+
+3. AVG()
+   Purpose: Calculates the average of numeric values in a column.
+   Usage: AVG(column_name) returns the average of the values in the specified column.
+   Example:
+   SELECT AVG(Salary) AS AverageSalary
+   FROM Employees;
+
+4. MIN()
+   Purpose: Returns the smallest value in a column.
+   Usage: MIN(column_name) returns the minimum value in the specified column.
+   Example:
+   SELECT MIN(Salary) AS LowestSalary
+   FROM Employees;
+
+5. MAX()
+   Purpose: Returns the largest value in a column.
+   Usage: MAX(column_name) returns the maximum value in the specified column.
+   Example:
+   SELECT MAX(Salary) AS HighestSalary
+   FROM Employees;
+
+6. GROUP_CONCAT()
+   Purpose: Concatenates values from multiple rows into a single string.
+   Usage: GROUP_CONCAT(column_name) combines values from the specified column into a comma-separated string.
+   Example:
+   SELECT DepartmentID, GROUP_CONCAT(Name) AS EmployeesList
+   FROM Employees
+   GROUP BY DepartmentID;
+
+7. COUNT(DISTINCT)
+   Purpose: Counts the number of unique non-NULL values in a column.
+   Usage: COUNT(DISTINCT column_name) returns the count of distinct non-NULL values.
+   Example:
+   SELECT COUNT(DISTINCT DepartmentID) AS UniqueDepartments
+   FROM Employees;
+
