@@ -5,6 +5,7 @@
 
 ## 📋 Table of Contents
 [MySQL_Concepts](#mysql_concepts)  
+
 ---
 ## 📖 Repository Content
 
