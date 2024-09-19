@@ -48,8 +48,11 @@
     - `Views.sql`
 
 ---
+
 ## 📢 Stay Tuned for More Updates!
 As I'm learning alongside you, I’ll continue to share new concepts and exercises as I explore them. If you have any feedback or suggestions, feel free to share your thoughts and until then, keep practicing. Greets!✌🏻
+
 ---
+
 ## 📜 License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
