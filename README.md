@@ -11,41 +11,54 @@
 
 ### MySQL_Concepts:
 
-1. **MySql.txt**
+- **01. MySql**  
+   - `MySql.txt`
 
-2. **Types_of_Sql_Commands.txt**
+- **02. Types_of_Sql_Commands**  
+   - `Types_of_Sql_Commands.txt`
 
-3. **DataTypes_in_Sql.txt**
+- **03. DataTypes_in_Sql**  
+   - `DataTypes_in_Sql.txt`
 
-4. **Database_and_Tables.txt**  
+- **04. Database_and_table**  
    - `Database_and_table.sql`
 
-5. **Constraint_Keys_in_Sql.txt**
+- **05. Constraint_Keys_in_Sql**  
+   - `Constraint_Keys_in_Sql.txt`
 
-6. **CRUD_Operation.sql**
+- **06. CRUD_Operation**  
+   - `CRUD_Operation.sql`
 
-7. **Operators.sql**
+- **07. Operators**  
+   - `Operators.sql`
 
-8. **Clauses.txt**  
+- **08. Clauses**  
+   - `Clauses.txt`  
    - `Clauses.sql`
 
-9. **Aggregate_functions.txt**  
+- **09. Aggregate_functions**  
+   - `Aggregate_functions.txt`  
    - `Aggregate_functions.sql`
 
-10. **Joins.txt**  
-    - `Joins.sql`
+- **10. Joins**  
+   - `Joins.txt`  
+   - `Joins.sql`
 
-11. **SubQueries.txt**  
-    - `SubQueries.sql`
+- **11. SubQueries**  
+   - `SubQueries.txt`  
+   - `SubQueries.sql`
 
-12. **Stored_Procedures.txt**  
-    - `Stored_Procedures.sql`
+- **12. Stored_Procedures**  
+   - `Stored_Procedures.txt`  
+   - `Stored_Procedures.sql`
 
-13. **Functions.txt**  
-    - `Functions.sql`
+- **13. Functions**  
+   - `Functions.txt`  
+   - `Functions.sql`
 
-14. **Views.txt**  
-    - `Views.sql`
+- **14. Views**  
+   - `Views.txt`  
+   - `Views.sql`
 
 ---
 
