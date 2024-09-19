@@ -2,7 +2,7 @@
 ---
 ## 📚 About This Repository
 ✧ This repository is designed to help you explore MySQL concepts from fundamental basics to advanced topics.
----
+
 ## 📋 Table of Contents
 [MySQL_Concepts](#mysql_concepts)  
 ---
