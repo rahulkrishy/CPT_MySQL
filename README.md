@@ -11,36 +11,36 @@
 
 ### MySQL_Concepts:
 
-- **01. MySql**  
+  **01. MySql**  
    - `MySql.txt`
 
-- **02. Types_of_Sql_Commands**  
+  **02. Types_of_Sql_Commands**  
    - `Types_of_Sql_Commands.txt`
 
-- **03. DataTypes_in_Sql**  
+  **03. DataTypes_in_Sql**  
    - `DataTypes_in_Sql.txt`
 
-- **04. Database_and_table**  
+  **04. Database_and_table**  
    - `Database_and_table.sql`
 
-- **05. Constraint_Keys_in_Sql**  
+  **05. Constraint_Keys_in_Sql**  
    - `Constraint_Keys_in_Sql.txt`
 
-- **06. CRUD_Operation**  
+  **06. CRUD_Operation**  
    - `CRUD_Operation.sql`
 
-- **07. Operators**  
+  **07. Operators**  
    - `Operators.sql`
 
-- **08. Clauses**  
+  **08. Clauses**  
    - `Clauses.txt`  
    - `Clauses.sql`
 
-- **09. Aggregate_functions**  
+  **09. Aggregate_functions**  
    - `Aggregate_functions.txt`  
    - `Aggregate_functions.sql`
 
-- **10. Joins**  
+  **10. Joins**  
    - `Joins.txt`  
    - `Joins.sql`
 
@@ -48,15 +48,15 @@
    - `SubQueries.txt`  
    - `SubQueries.sql`
 
-- **12. Stored_Procedures**  
+  **12. Stored_Procedures**  
    - `Stored_Procedures.txt`  
    - `Stored_Procedures.sql`
 
-- **13. Functions**  
+  **13. Functions**  
    - `Functions.txt`  
    - `Functions.sql`
 
-- **14. Views**  
+  **14. Views**  
    - `Views.txt`  
    - `Views.sql`
 
